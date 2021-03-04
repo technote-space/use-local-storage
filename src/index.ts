@@ -6,7 +6,7 @@ export type StorageType = Record<string, any>;
 export type OnChangedHandler = (key: string, value: any) => void;
 
 export type MemoryStorageOptions = {
-  storage: StorageType;
+  storage?: StorageType;
   onChanged?: OnChangedHandler;
 }
 
