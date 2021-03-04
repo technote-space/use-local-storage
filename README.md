@@ -23,12 +23,38 @@ React hook to handle localStorage.
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Setup
-### yarn
-- `yarn setup`
-### npm
-- `npm run setup`
+## Usage
+
+### Install
+
+`yarn add @technote-space/use-local-storage`
+
+or
+
+`npm i @technote-space/use-local-storage`
+
+### Use
+
+e.g.
+
+```ts
+import {useCallback} from 'react';
+import useLocalStorage from '@technote-space/use-local-storage';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+export type ThemeColor = 'light' | 'dark';
+const useDarkMode = (): [ThemeColor, () => void, (isDarkMode: boolean) => void] => {
+  const [isDarkMode, setDarkMode] = useLocalStorage('is-dark-mode', useMediaQuery('(prefers-color-scheme: dark)'));
+  const toggleDarkMode            = useCallback(() => {
+    setDarkMode(isDarkMode => !isDarkMode);
+  }, []);
+  return [isDarkMode ? 'dark' : 'light', toggleDarkMode, setDarkMode];
+};
+
+export default useDarkMode;
+```
 
 ## Author
+
 [GitHub (Technote)](https://github.com/technote-space)  
 [Blog](https://technote.space)
