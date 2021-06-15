@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/use-local-storage",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "React hook to handle localStorage.",
   "keywords": [
     "github",
@@ -42,10 +42,10 @@
     "@commitlint/config-conventional": "^12.1.4",
     "@testing-library/react-hooks": "^7.0.0",
     "@types/jest": "^26.0.23",
-    "@types/node": "^15.12.1",
-    "@types/react": "^17.0.9",
-    "@typescript-eslint/eslint-plugin": "^4.26.0",
-    "@typescript-eslint/parser": "^4.26.0",
+    "@types/node": "^15.12.2",
+    "@types/react": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
     "eslint": "^7.28.0",
     "husky": "^6.0.0",
     "jest": "^27.0.4",
