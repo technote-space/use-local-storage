@@ -1,29 +1,28 @@
 /* eslint-disable no-magic-numbers */
-import {renderHook, act} from '@testing-library/react-hooks';
-import useLocalStorage from '../src';
+import { act, renderHook, waitFor } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+import { useLocalStorage } from './index.js';
 
-Object.defineProperty(window, 'localStorage', (() => {
+vi.stubGlobal('localStorage', (() => {
   const store = {
-    'store-key1': JSON.stringify({test1: 1, test2: 'test2'}),
+    'store-key1': JSON.stringify({ test1: 1, test2: 'test2' }),
     'store-key3': 'a',
   };
 
   return {
-    value: {
-      getItem(key) {
-        return store[key] || null;
-      },
-      setItem(key, value) {
-        store[key] = value.toString();
-      },
+    getItem(key) {
+      return store[key] || null;
+    },
+    setItem(key, value) {
+      store[key] = value.toString();
     },
   };
 })());
 
 describe('useLocalStorage', () => {
   it('should restore localStorage value', () => {
-    const {result} = renderHook(() => useLocalStorage('store-key1', {}));
-    const value    = result.current[0];
+    const { result } = renderHook(() => useLocalStorage('store-key1', {}));
+    const value      = result.current[0];
 
     expect(value).toHaveProperty('test1');
     expect(value).toHaveProperty('test2');
@@ -32,8 +31,8 @@ describe('useLocalStorage', () => {
   });
 
   it('should use initial value', () => {
-    const {result} = renderHook(() => useLocalStorage('store-key2', {test1: 'test1', test3: 3}));
-    const value    = result.current[0];
+    const { result } = renderHook(() => useLocalStorage('store-key2', { test1: 'test1', test3: 3 }));
+    const value      = result.current[0];
 
     expect(value).toHaveProperty('test1');
     expect(value).not.toHaveProperty('test2');
@@ -43,11 +42,11 @@ describe('useLocalStorage', () => {
   });
 
   it('should catch json parse error', () => {
-    const mock  = jest.fn();
+    const mock  = vi.fn();
     console.log = mock;
 
-    const {result} = renderHook(() => useLocalStorage('store-key3', {test1: 1}));
-    const value    = result.current[0];
+    const { result } = renderHook(() => useLocalStorage('store-key3', { test1: 1 }));
+    const value      = result.current[0];
 
     expect(mock).toBeCalledTimes(1);
     expect(value).toHaveProperty('test1');
@@ -55,7 +54,7 @@ describe('useLocalStorage', () => {
   });
 
   it('should set to localStorage', () => {
-    const {result, waitFor} = renderHook(() => useLocalStorage('store-key4', 1));
+    const { result } = renderHook(() => useLocalStorage('store-key4', 1));
 
     expect(result.current[0]).toBe(1);
 
@@ -67,17 +66,17 @@ describe('useLocalStorage', () => {
   });
 
   it('should use memory storage', () => {
-    const {result} = renderHook(() => useLocalStorage('store-key5', 1, {
-      storage: {'store-key5': 2},
+    const { result } = renderHook(() => useLocalStorage('store-key5', 1, {
+      storage: { 'store-key5': 2 },
     }));
 
     expect(result.current[0]).toBe(2);
   });
 
   it('should call updated callback', () => {
-    const onChanged         = jest.fn();
-    const {result, waitFor} = renderHook(() => useLocalStorage('store-key6', 1, {
-      storage: {'store-key6': 2},
+    const onChanged  = vi.fn();
+    const { result } = renderHook(() => useLocalStorage('store-key6', 1, {
+      storage: { 'store-key6': 2 },
       onChanged,
     }));
 
