@@ -24,7 +24,7 @@ const getStoreValue = <T>(key: string, localStorage: StorageType | undefined, in
   }
 };
 
-const useLocalStorage = <T>(key: string, initialValue: T, options?: MemoryStorageOptions): [T, (value: T) => void] => {
+export const useLocalStorage = <T>(key: string, initialValue: T, options?: MemoryStorageOptions): [T, (value: T) => void] => {
   const storedValue = getStoreValue(key, options?.storage, initialValue);
   const setValue    = useCallback((value: T): void | never => {
     options?.onChanged?.(key, value);
@@ -33,5 +33,3 @@ const useLocalStorage = <T>(key: string, initialValue: T, options?: MemoryStorag
 
   return [storedValue, setValue];
 };
-
-export default useLocalStorage;

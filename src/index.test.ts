@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import useLocalStorage from '../src/index.js';
+import { useLocalStorage } from './index.js';
 
 vi.stubGlobal('localStorage', (() => {
   const store = {
