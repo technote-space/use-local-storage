@@ -74,7 +74,7 @@ describe('useLocalStorage', () => {
   });
 
   it('should call updated callback', () => {
-    const onChanged           = vi.fn();
+    const onChanged  = vi.fn();
     const { result } = renderHook(() => useLocalStorage('store-key6', 1, {
       storage: { 'store-key6': 2 },
       onChanged,

@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import { useCallback } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type StorageType = Record<string, any>;
