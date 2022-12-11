@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/use-local-storage",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "React hook to handle localStorage.",
   "keywords": [
     "github",
